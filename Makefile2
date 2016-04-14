@@ -1,0 +1,49 @@
+CC=gcc
+EXE=ldbf
+
+#Paths used to find the files
+LIBR=/home/alejandro/programs/lib
+INCPATH=-I${LIBR}/include
+LIBPATH=-L${LIBR}/bin
+
+MAINPATH=/home/alejandro/programs/lectorDbf
+SRCPATH=${MAINPATH}/src
+OBJPATH=${MAINPATH}/obj
+EXEPATH=${MAINPATH}/bin
+
+LIBS=-lutilities
+
+#Compiler options
+OPT_COMMON=-g
+OPT_COMP=-c -Wall -Werror -pedantic ${INCPATH} ${OPT_COMMON}
+OPT_EXE=${LIBPATH} ${LIBS} ${OPT_COMMON}
+
+OBJ1=main
+OBJ2=lectorDbf
+OBJ3=argumentos
+#OBJ4=cadenas
+OBJ5=procesoFormulas
+
+OBJ=${OBJPATH}/${OBJ1}.o ${OBJPATH}/${OBJ2}.o ${OBJPATH}/${OBJ3}.o \
+	${OBJPATH}/${OBJ5}.o
+
+${EXEPATH}/${EXE}: ${OBJ}
+	${CC} ${OBJ} ${OPT_EXE} -o ${EXEPATH}/${EXE}
+
+${OBJPATH}/${OBJ1}.o: ${SRCPATH}/${OBJ1}.c
+	${CC} ${OPT_COMP} ${SRCPATH}/${OBJ1}.c -o ${OBJPATH}/${OBJ1}.o
+
+${OBJPATH}/${OBJ2}.o: ${SRCPATH}/${OBJ2}.c
+	${CC} ${OPT_COMP} ${SRCPATH}/${OBJ2}.c -o ${OBJPATH}/${OBJ2}.o
+
+${OBJPATH}/${OBJ3}.o: ${SRCPATH}/${OBJ3}.c
+	${CC} ${OPT_COMP} ${SRCPATH}/${OBJ3}.c -o ${OBJPATH}/${OBJ3}.o
+
+#${OBJPATH}/${OBJ4}.o: ${SRCPATH}/${OBJ4}.c
+#${CC} ${OPT_COMP} ${SRCPATH}/${OBJ4}.c -o ${OBJPATH}/${OBJ4}.o
+
+${OBJPATH}/${OBJ5}.o: ${SRCPATH}/${OBJ5}.c
+	${CC} ${OPT_COMP} ${SRCPATH}/${OBJ5}.c -o ${OBJPATH}/${OBJ5}.o
+    
+clean:
+	rm -f ${OBJ} ${EXEPATH}/${EXE}
